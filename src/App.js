@@ -1,7 +1,17 @@
+import CardList from "./components/CardList";
+
 const categories = [
   { id: 1, name: "Frutas" },
   { id: 2, name: "Massas" },
   { id: 3, name: "Bebidas" },
+];
+
+const itens = [
+  { id: 1, name: "Maçã", quantity: 1, unit: "un" },
+  { id: 2, name: "Pão frances", quantity: 2, unit: "gr" },
+  { id: 3, name: "Brócolis", quantity: 3, unit: "kg" },
+  { id: 4, name: "Leite", quantity: 2, unit: "gr" },
+  { id: 5, name: "Peito de Frango", quantity: 3, unit: "kg" },
 ];
 
 const unities = [
@@ -52,7 +62,11 @@ function App() {
             </div>
           </div>
         </div>
-        <div>Listagem</div>
+        <div className="rounded-md flex flex-col gap-3">
+          {itens.map((iten) => (
+            <CardList key={iten.id} data={iten} />
+          ))}
+        </div>
       </div>
     </div>
   );
