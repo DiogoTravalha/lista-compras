@@ -1,17 +1,10 @@
+import { useState } from "react";
 import CardList from "./components/CardList";
 
 const categories = [
   { id: 1, name: "Frutas" },
   { id: 2, name: "Massas" },
   { id: 3, name: "Bebidas" },
-];
-
-const itens = [
-  { id: 1, name: "Maçã", quantity: 1, unit: "un" },
-  { id: 2, name: "Pão frances", quantity: 2, unit: "gr" },
-  { id: 3, name: "Brócolis", quantity: 3, unit: "kg" },
-  { id: 4, name: "Leite", quantity: 2, unit: "gr" },
-  { id: 5, name: "Peito de Frango", quantity: 3, unit: "kg" },
 ];
 
 const unities = [
@@ -21,6 +14,14 @@ const unities = [
 ];
 
 function App() {
+  const [list, setList] = useState([
+    { id: 1, item: "Maçã", quantity: 1, unit: "un", status: false },
+    { id: 2, item: "Pão frances", quantity: 2, unit: "gr", status: true },
+    { id: 3, item: "Brócolis", quantity: 3, unit: "kg", status: false },
+    { id: 4, item: "Leite", quantity: 2, unit: "gr", status: false },
+    { id: 5, item: "Peito de Frango", quantity: 3, unit: "kg", status: true },
+  ]);
+
   return (
     <div className="flex flex-col w-full h-svh bg-1">
       <img
@@ -63,8 +64,28 @@ function App() {
           </div>
         </div>
         <div className="rounded-md flex flex-col gap-3">
-          {itens.map((iten) => (
-            <CardList key={iten.id} data={iten} />
+          {list.map((iten) => (
+            <CardList
+              key={iten.id}
+              data={iten}
+              onChecked={(e) => {
+                setList(
+                  list.map((doc) => {
+                    if (doc.id !== iten.id) {
+                      return doc;
+                    }
+                    return {
+                      id: doc.id,
+                      iten: doc.iten,
+                      quantity: doc.quantity,
+                      unit: doc.unit,
+                      category: doc.category,
+                      checked: e.target.checked,
+                    };
+                  })
+                );
+              }}
+            />
           ))}
         </div>
       </div>
